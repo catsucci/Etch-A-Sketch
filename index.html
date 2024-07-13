@@ -1,44 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Etch-A-Sketch</title>
-    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="./style.css" />
     <script src="./script.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="body-container">
-        <div class="left-dock">
-            <div class="color-picker-wrapper">
-                <input type="color" value="#000000" class="color-picker"/>
-            </div>
-            <div class="option-buttons">
-                <button class="color-mode">Color mode</button>
-                <button class="rainbow-mode">Gay mode</button>
-                <button class="eraser">Eraser</button>
-                <button class="clear">Clear</button>
-            </div>
-            <div class="canvas-size-container">
-                <p class="canvas-size-title">Move the range</p>
-                <input type="range" class="canvas-size-picker" min="0" max="32" step="8">
-            </div>
+      <div class="left-dock">
+        <div class="color-picker-wrapper">
+          <input type="color" value="#000000" class="color-picker" />
         </div>
-        <div class="canvas-container">
-            <h1 class="canvas-header">Eatch-A-Sketch</h1>
-            <div class="canvas"></div>
+        <div class="option-buttons">
+          <button class="color-mode togglable-btn">Color mode</button>
+          <button class="rainbow-mode togglable-btn">Gay mode</button>
+          <button class="gride-toggle">Gride toggle</button>
+          <button class="eraser togglable-btn">Eraser</button>
+          <button class="clear">Clear</button>
         </div>
-        <div class="right-dock"></div>
+        <div class="canvas-size-container">
+          <p class="canvas-size-title">Move the range</p>
+          <input
+            type="range"
+            class="canvas-size-picker"
+            min="0"
+            max="32"
+            step="8"
+            value="0"
+          />
+        </div>
+      </div>
+      <div class="canvas-container">
+        <h1 class="canvas-header">Eatch-A-Sketch</h1>
+        <div class="canvas"></div>
+      </div>
+      <div class="right-dock"></div>
     </div>
 
-<footer>
-    <p>
+    <footer>
+      <p>
         Copyright &copy; 2024
         <a href="https://github.com/catsucci" class="">
-             catsucci
-            <div class="github-icon-container"><img src="./drawables/icons/mdi_github.svg" alt="GitHub Icon" class="github-icon"></div>
+          catsucci
+          <div class="github-icon-container">
+            <img
+              src="./drawables/icons/mdi_github.svg"
+              alt="GitHub Icon"
+              class="github-icon"
+            />
+          </div>
         </a>
-    </p>
-</footer>
-</body>
+      </p>
+    </footer>
+  </body>
 </html>

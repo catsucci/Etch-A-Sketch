@@ -67,6 +67,7 @@ a{
     width: 3rem;
     height: 3rem;
     background-color: black;
+    border: 2px solid black;
 }
 
 .color-picker:hover {
@@ -90,9 +91,15 @@ a{
     min-width: fit-content;
 }
 
+.option-button-toggle {
+  background-color: black !important;
+  color: #fefefe;
+}
+
 .option-buttons > button:hover {
-    padding: 1rem 1.5rem;
-    cursor: pointer;
+  color: rgb(254, 254, 254);
+  background-color: black;
+  cursor: pointer;
 }
 
 .canvas-container {
@@ -137,6 +144,10 @@ input[type="color"] {
 }
 .canvas > * {
   border: 0.2px solid gray;
+}
+
+.borderless {
+  border: none !important;
 }
 
 .eightByEight {

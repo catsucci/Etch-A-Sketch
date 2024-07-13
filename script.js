@@ -6,11 +6,13 @@ const dom_color_picker_wrapper = document.querySelector(
 );
 const dom_togglable_buttons = document.querySelectorAll(".togglable-btn");
 const dom_gride_toggle = document.querySelector(".gride-toggle");
+const dom_eraser = document.querySelector(".eraser");
+const dom_clear = document.querySelector(".clear");
 
 const cursorState = {
   tool: "cursor",
   color: "#fff",
-  isDrawing: true,
+  isMouseDown: false,
 };
 
 dom_color_picker_wrapper.firstElementChild.addEventListener(
@@ -27,14 +29,15 @@ dom_range_picker.addEventListener("input", (event) => {
 });
 
 let UpdateCanvas = (value) => {
-  let dom_canvas = document.querySelector(".canvas");
-  ClearCanvas();
+  // let dom_canvas = document.querySelector(".canvas");
+  EmptyCanvas();
   const pixelClass = GetPixelClass(value);
   for (let i = 0; i < value * value; i++) {
     let pixel = document.createElement("div");
-    pixel.className = `${pixelClass}`;
+    pixel.className = `${pixelClass} pixel`;
     dom_canvas.appendChild(pixel);
   }
+  colorpi();
 };
 
 let GetPixelClass = (value) => {
@@ -59,6 +62,7 @@ dom_togglable_buttons.forEach((btn) => {
     switch (event.target.className.split(" ")[0]) {
       case "color-mode":
         cursorState.tool = "brush";
+        cursorState.color = dom_color_picker_wrapper.children[0].value;
         event.target.classList.add("option-button-toggle");
         break;
       case "rainbow-mode":
@@ -67,6 +71,7 @@ dom_togglable_buttons.forEach((btn) => {
         break;
       case "eraser":
         cursorState.tool = "eraser";
+        cursorState.color = '';
         event.target.classList.add("option-button-toggle");
         break;
     }
@@ -82,6 +87,15 @@ dom_togglable_buttons.forEach((btn) => {
   });
 });
 
+dom_eraser.addEventListener("click", () => {
+  cursorState.tool = "eraser";
+  cursorState.color = "";
+});
+
+dom_clear.addEventListener("click", () => {
+  ClearCanvas();
+});
+
 dom_gride_toggle.addEventListener("click", (event) => {
   event.target.classList.toggle("option-button-toggle");
   Array.from(dom_canvas.children).forEach((div) => {
@@ -90,11 +104,17 @@ dom_gride_toggle.addEventListener("click", (event) => {
 });
 
 let ClearCanvas = () => {
-  let dom_canvas = document.querySelector(".canvas");
-  dom_canvas.innerHTML = "";
+  // let dom_canvas = document.querySelector(".canvas");
+  Array.from(dom_canvas.children).forEach(pixel => {
+    pixel.style.backgroundColor = "";
+  });
 };
 
-let getRandomColor = () => {
+let EmptyCanvas = () => {
+  dom_canvas.innerHTML = '';
+};
+
+let GetRandomColor = () => {
   const letters = "0123456789ABCDEF";
   let color = "#";
   for (let i = 0; i < 6; i++) {
@@ -102,3 +122,43 @@ let getRandomColor = () => {
   }
   return color;
 };
+
+
+let ColorPixel = (pixel) => {
+  if (pixel.classList.contains("pixel")) {
+    if(cursorState.tool === "rainbow-brush") {
+      cursorState.color = GetRandomColor();
+    }
+    pixel.style.backgroundColor = cursorState.color;
+  }
+};
+
+let colorpi = () => {
+  Array.from(dom_canvas.children).forEach(pixel => {
+    pixel.style.backgroundColor = `${cursorState.color}`;
+  });
+};
+
+dom_canvas.addEventListener('mousedown',(event) => {
+  event.preventDefault();
+  cursorState.isMouseDown = true;
+  ColorPixel(event.target);
+});
+
+
+document.addEventListener('mouseup', () => {
+cursorState.isMouseDown = false;
+});
+
+
+dom_canvas.addEventListener('mouseover', (event) => {
+if (cursorState.isMouseDown) {
+  ColorPixel(event.target);
+}
+});
+
+document.addEventListener('selectstart', (event) => {
+if (cursorState.isMouseDown) {
+  event.preventDefault();
+}
+});

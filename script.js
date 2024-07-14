@@ -11,7 +11,7 @@ const dom_clear = document.querySelector(".clear");
 
 const cursorState = {
   tool: "cursor",
-  color: "#fff",
+  color: "#000000",
   isMouseDown: false,
 };
 
@@ -37,7 +37,6 @@ let UpdateCanvas = (value) => {
     pixel.className = `${pixelClass} pixel`;
     dom_canvas.appendChild(pixel);
   }
-  colorpi();
 };
 
 let GetPixelClass = (value) => {
@@ -131,12 +130,6 @@ let ColorPixel = (pixel) => {
     }
     pixel.style.backgroundColor = cursorState.color;
   }
-};
-
-let colorpi = () => {
-  Array.from(dom_canvas.children).forEach(pixel => {
-    pixel.style.backgroundColor = `${cursorState.color}`;
-  });
 };
 
 dom_canvas.addEventListener('mousedown',(event) => {
